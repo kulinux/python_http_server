@@ -1,4 +1,5 @@
-from app.parse import Request, parse_request
+from app.parse_request import parse_request
+from app.model import Request
 
 
 def test_parse_get_request():

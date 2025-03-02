@@ -1,11 +1,5 @@
-from dataclasses import dataclass
 from typing import Optional
-
-
-@dataclass
-class Request:
-    method: str
-    path: str
+from app.model import Request
 
 
 def parse_request(content: str) -> Optional[Request]:

@@ -1,5 +1,8 @@
 import socket
-from app.parse import parse_request  # noqa: F401
+
+from app.parse_request import parse_request
+from app.parse_response import parse_response
+from app.action import action
 
 
 def main():
@@ -17,17 +20,12 @@ def main():
 
     request = parse_request(content)
 
-    ok = "HTTP/1.1 200 OK\r\n\r\n"
-    not_found = "HTTP/1.1 404 Not Found\r\n\r\n"
-
     if request is None:
         raise Exception("request is None")
-    elif request.path == "/":
-        response = ok
-    else:
-        response = not_found
 
-    conn.send(response.encode("utf-8"))
+    response = action(request)
+    content_response = parse_response(response)
+    conn.send(content_response.encode("utf-8"))
 
     conn.close()
 
