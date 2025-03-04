@@ -16,3 +16,13 @@ def test_nok_when_no_root_path():
     actual = action(request)
 
     assert actual == Response.NotFound()
+
+
+def test_echo():
+    request = Request("GET", "/echo/abcd")
+
+    actual = action(request)
+
+    assert actual == Response.Ok().with_body("abcd").with_header(
+        "Content-Length", "4"
+    ).with_header("Content-Type", "text/plain")

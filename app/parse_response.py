@@ -7,4 +7,4 @@ def parse_response(response: Response) -> str:
     if response == Response.NotFound():
         return "HTTP/1.1 404 Not Found\r\n\r\n"
     else:
-        return "Parse Not implemented"
+        return "HTTP/1.1 500 Parse Not implemented\r\n\r\n"
