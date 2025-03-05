@@ -5,15 +5,7 @@ from app.parse_response import parse_response
 from app.action import action
 
 
-def main():
-    # You can use print statements as follows for debugging, they'll be visible when running tests.
-    print("Logs from your program will appear here!")
-
-    # Uncomment this to pass the first stage
-    #
-    server_socket = socket.create_server(("localhost", 4221), reuse_port=True)
-    (conn, _) = server_socket.accept()  # wait for client
-
+def __process_con(conn: socket.socket):
     contentAsBytes = conn.recv(10000)
 
     content = contentAsBytes.decode("utf-8")
@@ -28,6 +20,17 @@ def main():
     conn.send(content_response.encode("utf-8"))
 
     conn.close()
+
+
+def main():
+    # You can use print statements as follows for debugging, they'll be visible when running tests.
+    print("Logs from your program will appear here!")
+
+    # Uncomment this to pass the first stage
+    #
+    server_socket = socket.create_server(("localhost", 4221), reuse_port=True)
+    (conn, _) = server_socket.accept()  # wait for client
+    __process_con(conn)
 
 
 if __name__ == "__main__":
