@@ -28,3 +28,23 @@ def test_parse_header():
     expected = "HTTP/1.1 200 OK\r\nheader_key: header_value\r\n"
 
     assert actual == expected
+
+
+def test_parse_body():
+    response = Response.Ok().with_body("This is body")
+
+    actual = parse_response(response)
+
+    expected = "HTTP/1.1 200 OK\r\n\r\n\r\nThis is body"
+
+    assert actual == expected
+
+
+def test_parse_header_and_body():
+    response = Response.Ok().with_header("key", "value").with_body("This is body")
+
+    actual = parse_response(response)
+
+    expected = "HTTP/1.1 200 OK\r\nkey: value\r\n\r\nThis is body"
+
+    assert actual == expected

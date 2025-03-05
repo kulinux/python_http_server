@@ -12,7 +12,9 @@ def parse_response(response: Response) -> str:
         response.headers.items(),
     )
 
-    return status + EOL + EOL.join(headers) + EOL
+    body = EOL + EOL + response.body if response.body is not None else EOL
+
+    return status + EOL + EOL.join(headers) + body
 
 
 def __message(status: int) -> str:
