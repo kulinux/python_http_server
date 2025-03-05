@@ -1,10 +1,24 @@
 from app.model import Response
 
 
+EOL = "\r\n"
+
+
 def parse_response(response: Response) -> str:
-    if response == Response.Ok():
-        return "HTTP/1.1 200 OK\r\n\r\n"
-    if response == Response.NotFound():
-        return "HTTP/1.1 404 Not Found\r\n\r\n"
+    status = f"HTTP/1.1 {response.status} {__message(response.status)}"
+
+    headers = map(
+        lambda header: f"{header[0]}: {header[1]}",
+        response.headers.items(),
+    )
+
+    return status + EOL + EOL.join(headers) + EOL
+
+
+def __message(status: int) -> str:
+    if status == 200:
+        return "OK"
+    elif status == 404:
+        return "Not Found"
     else:
-        return "HTTP/1.1 500 Parse Not implemented\r\n\r\n"
+        return "Not implemented"
