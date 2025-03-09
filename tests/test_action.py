@@ -31,7 +31,7 @@ def test_echo():
 
 
 def test_read_file():
-    with patch("app.action.read_file") as mock:
+    with patch("app.routes.read_file") as mock:
         request = Request("GET", "/files/foo.txt")
 
         mock.return_value = "content"
@@ -46,7 +46,7 @@ def test_read_file():
 
 
 def test_read_file_not_exists():
-    with patch("app.action.read_file") as mock:
+    with patch("app.routes.read_file") as mock:
         request = Request("GET", "/files/foo.txt")
         mock.return_value = None
 
